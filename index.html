@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Will You Be Mine?</title>
+
+<style>
+    body {
+        height: 100vh;
+        background: linear-gradient(135deg, #ff758c, #ff7eb3);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    .card {
+        background: white;
+        padding: 45px;
+        border-radius: 25px;
+        text-align: center;
+        box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+        max-width: 420px;
+    }
+
+    h1 {
+        color: #e63946;
+        font-size: 2.3em;
+        margin-bottom: 15px;
+    }
+
+    p {
+        font-size: 1.15em;
+        color: #444;
+        min-height: 100px;
+        transition: all 0.3s ease;
+    }
+
+    .buttons {
+        margin-top: 30px;
+        position: relative;
+    }
+
+    button {
+        padding: 14px 30px;
+        border-radius: 40px;
+        border: none;
+        font-size: 1em;
+        cursor: pointer;
+        margin: 10px;
+        transition: 0.3s;
+    }
+
+    .yes {
+        background: #e63946;
+        color: white;
+    }
+
+    .yes:hover {
+        transform: scale(1.15);
+    }
+
+    .no {
+        background: #eee;
+    }
+
+    .dramatic {
+        animation: shake 0.4s;
+    }
+
+    @keyframes shake {
+        0% { transform: translateX(0); }
+        25% { transform: translateX(-6px); }
+        50% { transform: translateX(6px); }
+        75% { transform: translateX(-6px); }
+        100% { transform: translateX(0); }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="card">
+    <h1>Will You Be Mine? ❤️</h1>
+    <p id="story">
+        I’ve been thinking about this moment for a long time…
+    </p>
+
+    <div class="buttons">
+        <button class="yes" onclick="yesClick()">YES 💍</button>
+        <button class="no" id="noBtn">No 😢</button>
+    </div>
+</div>
+
+<script>
+    const story = document.getElementById("story");
+    const noBtn = document.getElementById("noBtn");
+
+    const stages = [
+        "Wait… what? 😳",
+        "Are you sure? My heart just skipped a beat 💔",
+        "This is hurting more than I expected 😢",
+        "I really thought we were something special 😞",
+        "Okay… now my heart is actually breaking 💔",
+        "I would’ve chosen you in every lifetime 😭",
+        "Even if you say no, my feelings won’t change ❤️",
+        "This hurts… but I’ll respect your choice 😔",
+        "Just kidding. Destiny clearly says YES 😌💍"
+    ];
+
+    let step = 0;
+
+    function noAttempt() {
+        story.classList.add("dramatic");
+        setTimeout(() => story.classList.remove("dramatic"), 400);
+
+        if (step < stages.length) {
+            story.innerHTML = stages[step];
+            step++;
+        }
+    }
+
+    noBtn.addEventListener("mouseenter", noAttempt);
+    noBtn.addEventListener("click", noAttempt);
+
+    function yesClick() {
+        document.body.innerHTML = `
+            <div style="text-align:center;color:white;">
+                <h1 style="font-size:3em;">💖 YESSS 💖</h1>
+                <p style="font-size:1.5em;">You just made me the happiest person alive 💍</p>
+                <p>Forever starts now ✨</p>
+            </div>
+        `;
+    }
+</script>
+
+</body>
+</html>
