@@ -12,6 +12,7 @@
         justify-content: center;
         align-items: center;
         font-family: 'Segoe UI', sans-serif;
+        margin: 0;
     }
 
     .card {
@@ -75,6 +76,48 @@
         75% { transform: translateX(-6px); }
         100% { transform: translateX(0); }
     }
+
+    /* POPUP STYLES */
+    .popup {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.6);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+
+    .popup-box {
+        background: white;
+        padding: 25px 35px;
+        border-radius: 15px;
+        text-align: center;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        animation: pop 0.3s ease;
+    }
+
+    .popup-box p {
+        font-size: 1.2em;
+        margin-bottom: 15px;
+    }
+
+    .popup-box button {
+        padding: 8px 20px;
+        border: none;
+        border-radius: 20px;
+        background: #e63946;
+        color: white;
+        cursor: pointer;
+    }
+
+    @keyframes pop {
+        from { transform: scale(0.7); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
+    }
 </style>
 </head>
 
@@ -83,17 +126,28 @@
 <div class="card">
     <h1>Hey Cute Chashmish… Will You Be Mine?</h1>
     <p id="story">
-        Yrr… I think it’s time to confess my feelings to you 💖    </p>
+        Yrr… I think it’s time to confess my feelings to you 💖
+    </p>
 
     <div class="buttons">
-        <button class="yes" onclick="yesClick()">YES </button>
+        <button class="yes" onclick="yesClick()">YES</button>
         <button class="no" id="noBtn">No 😭</button>
+    </div>
+</div>
+
+<!-- POPUP -->
+<div id="popup" class="popup">
+    <div class="popup-box">
+        <p id="popupText"></p>
+        <button onclick="closePopup()">OK</button>
     </div>
 </div>
 
 <script>
     const story = document.getElementById("story");
     const noBtn = document.getElementById("noBtn");
+    const popup = document.getElementById("popup");
+    const popupText = document.getElementById("popupText");
 
     const stages = [
         "Wait… what? 😳",
@@ -109,6 +163,15 @@
 
     let step = 0;
 
+    function showPopup(message) {
+        popupText.innerText = message;
+        popup.style.display = "flex";
+    }
+
+    function closePopup() {
+        popup.style.display = "none";
+    }
+
     function noAttempt() {
         story.classList.add("dramatic");
         setTimeout(() => story.classList.remove("dramatic"), 400);
@@ -123,13 +186,17 @@
     noBtn.addEventListener("click", noAttempt);
 
     function yesClick() {
-        document.body.innerHTML = `
-            <div style="text-align:center;color:white;">
-                <h1 style="font-size:3em;">💖 YESSS 💖</h1>
-                <p style="font-size:1.5em;">You just made me the happiest person alive ❤️</p>
-                <p>Forever starts now ✨</p>
-            </div>
-        `;
+        showPopup("She said YES!! Screenshot this moment 📸💖");
+
+        setTimeout(() => {
+            document.body.innerHTML = `
+                <div style="text-align:center;color:white;">
+                    <h1 style="font-size:3em;">💖 YESSS 💖</h1>
+                    <p style="font-size:1.5em;">You just made me the happiest person alive ❤️</p>
+                    <p>Forever starts now ✨</p>
+                </div>
+            `;
+        }, 2000);
     }
 </script>
 
